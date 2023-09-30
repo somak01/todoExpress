@@ -1,0 +1,39 @@
+h1 {
+    color:red;
+    border:solid 5px;
+    border-color: #AED8CC;
+    align-items: center;
+    /*justify-content: center;*/
+}
+
+body {
+    background-color:#461959;
+    display:block;
+    margin:0 auto;
+    width: 50%;
+
+}
+.container{
+    margin-top:100px;
+}
+nav{
+    position:fixed;
+    /*left:40%;*/
+    top:0;
+}
+.nav_ele {
+    list-style-type: none;
+    width:200px;
+    margin: 0;
+    padding:0;
+}
+
+li {
+    float: left;
+  }
+  
+  a {
+    display: block;
+    padding: 8px;
+    background-color: #dddddd;
+  } 
