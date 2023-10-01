@@ -12,7 +12,6 @@ submit.addEventListener("click", (event) => {
 
 
     if (location && priority && date && activity) {
-        console.log("Cocksucker!");
         axios.post("/add/todo", {priority, location, date, activity})
         console.log("elerunk eddig?");
         form.reset();

@@ -9,7 +9,7 @@ export const addRouter = Router();
 
 addRouter.get("/", (req, res, next) => {
     console.log("Something in the way?");
-    return res.render("add", {});
+    return res.render("add");
 })
 
 addRouter.post("/todo",(req, res, next) =>  {
