@@ -3,13 +3,49 @@ import * as session from "express-session";
 import {fileURLToPath} from "url";
 import {dirname, sep} from "path";
 import fs from "fs";
-import logging from "./helper/something.js";
 import mariadb from "mariadb";
+import mongoose from "mongoose";
+
+
+//**************************************\\
+import {addRouter} from "./routes/add.js";
+import {modifyRouter} from "./routes/modify.js";
+import {homeRouter} from "./routes/home.js";
+import logging from "./middleware/logging.js";
+//**************************************\\
 
 
 const __dirname = dirname(fileURLToPath(import.meta.url)) + sep;
 
+const uri = "mongodb://localhost:27017/todo";
 
+async function connect() {
+    try{
+        await mongoose.connect(uri);
+        console.log("Connected to mongodb");
+        //console.log(mongoose.connection[0]);
+        //const todo = mongoose.model("todo", todoSchema);
+
+        // const jog = new todo({
+        //     priority: 5,
+        //     activity:"Jog",
+        //     date: new Date(),
+        //     location:"Amberhall",
+        // })
+        // jog.save();
+        // const todos = await todo.find();
+        // console.log(todos);
+        // todo.deleteMany({priority:{$eq:5}}).then(() => {
+        //     console.log("Data deleted");
+        // }).catch((error) => {
+        //     console.error(error);
+        // });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+connect();
 
 const cfg = {
     port:3001,
@@ -18,44 +54,24 @@ const cfg = {
         data:__dirname + "data" + sep,
     }
 }
-
-const data = fs.readFileSync("./data/test.json");
-const readable = JSON.parse(data);
 const app = express();
 
 
 app.set("view engine", "ejs");
 
 
-app.use((req, res, next) => {
-    console.log(cfg.dir);
-    console.log(req.url);
-    next();
-});
+app.use(logging);
 app.use(express.static(cfg.dir.public));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
-app.get("/home", (req, res) => {
-    res.render(
-        "home",
-        {}
-    )
-})
-app.get("/add", (req, res) => {
-    res.render(
-        "add",
-        {}
-    )
-})
-app.get("/modify", (req, res) => {
-    res.render(
-        "modify",
-        {}
-    )
-})
+app.use("/home/",homeRouter);
+app.use("/add/", addRouter);
+app.use("/modify/", modifyRouter);
 
 app.listen(cfg.port, () => {
     console.log(cfg.dir);
-    logging();
+    //logging();
     //console.log(readable);
 });
