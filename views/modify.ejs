@@ -7,7 +7,7 @@
                 <label for="activitySelect">Select an activity</label>
                 <select name="activitySelect">
                     <% todo.forEach((todos) => {  %>
-                        <option id="<%=todos._id%>"><%=todos._id%>,<%=todos.activity%>, <%=todos.location%>, <%=todos.priority%>, <%=todos.date.toDateString()%></option>
+                        <option id="<%=todos._id%>"><%=todos.activity%>, <%=todos.location%>, <%=todos.priority%>, <%=todos.date.toDateString()%></option>
                     <% })%>
                 </select>
             </div>
@@ -48,7 +48,7 @@
                 <input type="text" name="location" class="form-control" placeholder="Home">
             </div>
         </div>
-        <button type="submit" class="btn btn-primary submit" id="submitButton">Submit</button>
+        <button type="submit" class="btn btn-primary submit" id="saveButton">Save</button>
     </form>
     
 
